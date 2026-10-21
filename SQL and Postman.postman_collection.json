@@ -76,7 +76,8 @@
       "name": "Advanced Count",
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": "https://qwallity-prod.onrender.com/courses/advanced/api"
       },
       "response": []
     },
@@ -84,7 +85,8 @@
       "name": "Fundamental Count",
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": "https://qwallity-prod.onrender.com/courses/fundamental/api"
       },
       "response": []
     },
@@ -92,7 +94,8 @@
       "name": "Get Balance",
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": "https://qwallity-prod.onrender.com/balance/balance_api"
       },
       "response": []
     },
