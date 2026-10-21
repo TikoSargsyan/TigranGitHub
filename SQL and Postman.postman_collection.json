@@ -1,0 +1,157 @@
+{
+  "info": {
+    "_postman_id": "530a6ea9-247e-4356-b8fe-269afedc1e54",
+    "name": "SQL and Postman",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29267181"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "{{username}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "https://qwallity-prod.onrender.com/login/api",
+          "protocol": "https",
+          "host": [
+            "qwallity-prod",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "login",
+            "api"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ADD course",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"author\": \"Tiko\",\n  \"body\": \"Testing invalid course type\",\n  \"coursetype\": \"3\",\n  \"price\": 100,\n  \"title\": \"Invalid-Course-Type-Test\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://qwallity-prod.onrender.com/add_course/api",
+          "protocol": "https",
+          "host": [
+            "qwallity-prod",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "add_course",
+            "api"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Advanced Count",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Fundamental Count",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Get Balance",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Balance Cash",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Cash payment -> 200\", () => pm.response.to.have.status(200));",
+              "console.log(pm.response.text());"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "followRedirects": false
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRpa28wMDAiLCJpZCI6NDQ2MzkxMzE2LCJyb2xlIjoyLCJleHAiOjE3OTIwNDgxMDd9.HlFo69m68ob6JwYJKSFKjtZxcrDoHiUer5Pva_IuB-o",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 100,\n  \"payment\": \"1\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://qwallity-prod.onrender.com/add_account_balance/payment_api",
+          "protocol": "https",
+          "host": [
+            "qwallity-prod",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "add_account_balance",
+            "payment_api"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
