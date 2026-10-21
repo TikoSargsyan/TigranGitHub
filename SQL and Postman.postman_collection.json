@@ -225,7 +225,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "https://qwallity-prod.onrender.com/payment_api",
+          "raw": "https://qwallity-prod.onrender.com/balance/balance_api",
           "protocol": "https",
           "host": [
             "qwallity-prod",
@@ -233,7 +233,8 @@
             "com"
           ],
           "path": [
-            "payment_api"
+            "balance",
+            "balance_api"
           ]
         }
       },
