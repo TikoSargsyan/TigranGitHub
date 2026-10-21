@@ -8,18 +8,43 @@
   "item": [
     {
       "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Login successful\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const response = pm.response.json();",
+              "",
+              "pm.test(\"Token exists\", function () {",
+              "    pm.expect(response.token).to.be.a(\"string\").and.not.empty;",
+              "});",
+              "",
+              "pm.collectionVariables.set(\"token\", response.token);",
+              "",
+              "console.log(\"Login token saved to collection variables\");"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
       "request": {
         "auth": {
           "type": "basic",
           "basic": [
             {
-              "key": "password",
-              "value": "{{password}}",
+              "key": "username",
+              "value": "nonadmin_user",
               "type": "string"
             },
             {
-              "key": "username",
-              "value": "{{username}}",
+              "key": "password",
+              "value": "11111111",
               "type": "string"
             }
           ]
@@ -45,6 +70,16 @@
     {
       "name": "ADD course",
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "POST",
         "header": [],
         "body": {
@@ -74,28 +109,133 @@
     },
     {
       "name": "Advanced Count",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "const res = pm.response.json();",
+              "pm.environment.set(\"api_advanced_count\", res.count);",
+              "console.log(\"API advanced:\", res.count);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
-        "header": [],
-        "url": "https://qwallity-prod.onrender.com/courses/advanced/api"
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://qwallity-prod.onrender.com/courses/advanced/api",
+          "protocol": "https",
+          "host": [
+            "qwallity-prod",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "courses",
+            "advanced",
+            "api"
+          ]
+        }
       },
       "response": []
     },
     {
       "name": "Fundamental Count",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "const res = pm.response.json();",
+              "pm.environment.set(\"api_fundamental_count\", res.count);",
+              "console.log(\"API fundamental:\", res.count);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [],
-        "url": "https://qwallity-prod.onrender.com/courses/fundamental/api"
+        "url": {
+          "raw": "https://qwallity-prod.onrender.com/courses/fundamental/api",
+          "protocol": "https",
+          "host": [
+            "qwallity-prod",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "courses",
+            "fundamental",
+            "api"
+          ]
+        }
       },
       "response": []
     },
     {
       "name": "Get Balance",
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [],
-        "url": "https://qwallity-prod.onrender.com/balance/balance_api"
+        "url": {
+          "raw": "https://qwallity-prod.onrender.com/payment_api",
+          "protocol": "https",
+          "host": [
+            "qwallity-prod",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "payment_api"
+          ]
+        }
       },
       "response": []
     },
@@ -124,7 +264,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRpa28wMDAiLCJpZCI6NDQ2MzkxMzE2LCJyb2xlIjoyLCJleHAiOjE3OTIwNDgxMDd9.HlFo69m68ob6JwYJKSFKjtZxcrDoHiUer5Pva_IuB-o",
+              "value": "{{token}}",
               "type": "string"
             }
           ]
@@ -133,7 +273,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"amount\": 100,\n  \"payment\": \"1\"\n}",
+          "raw": "{\n  \"amount\": 100,\n  \"payment\": \"1\",\n  \"card_num\": 0,\n  \"exp_date\": \"2030/12/31\",\n  \"card_cvv\": \"123\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -155,6 +295,46 @@
         }
       },
       "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
     }
   ]
 }
