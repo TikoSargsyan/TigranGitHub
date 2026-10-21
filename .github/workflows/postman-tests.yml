@@ -23,14 +23,15 @@ jobs:
       - name: Install Newman
         run: npm install --global newman
 
+     
       - name: Run Postman Collection
         env:
-          POSTMAN_USERNAME: ${{ secrets.nonadmin_user }}
-          POSTMAN_PASSWORD: ${{ secrets.11111111 }}
+          POSTMAN_USERNAME: ${{ secrets.POSTMAN_USERNAME }}
+          POSTMAN_PASSWORD: ${{ secrets.POSTMAN_PASSWORD }}
         run: |
           newman run "SQL and Postman.postman_collection.json" \
-            --env-var "username=$nonadmin_admin" \
-            --env-var "password=$11111111"
+            --env-var "username=$POSTMAN_USERNAME" \
+            --env-var "password=$POSTMAN_PASSWORD"
 
 
 
